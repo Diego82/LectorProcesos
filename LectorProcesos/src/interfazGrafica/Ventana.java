@@ -1,4 +1,4 @@
-package interfazGrafica;
+package interfazGrafica; 
 
 import java.awt.EventQueue;
 import java.util.ArrayList;
@@ -12,18 +12,28 @@ import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import javax.swing.JTable;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+
 import logica.JTablaModelo;
 import logica.Proceso;
+import logica.LanzarProceso;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JLayeredPane;
 
-public class Ventana {
+public class Ventana extends JFrame {
 
 	private JFrame frame;
-	private JTable table;
+	// JPanel panel = new JPanel();
 	private JTablaModelo modelo = null;
-	List<Proceso> listaProcesos = new ArrayList<Proceso>();
+	List<Proceso> listadoProcesos = new ArrayList<Proceso>();
+	private JTable tableProcess;
 
 	/**
 	 * Launch the application.
@@ -53,42 +63,80 @@ public class Ventana {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(200, 150, 750, 500);
+		frame.setBounds(200, 150, 950, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		
-		JMenu MenuArchivo = new JMenu("Archivo");
-		menuBar.add(MenuArchivo);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		
-		JMenuItem mntmVerProceso = new JMenuItem("Ver procesos");
-		mntmVerProceso.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Proceso p = new Proceso("hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola");
-				listaProcesos.add(p);
-				modelo = new JTablaModelo(listaProcesos);
-				table  = new JTable(modelo);
-				scrollPane.setViewportView(table);
-				
-			}
-		});
-		MenuArchivo.add(mntmVerProceso);
-		
-		JMenuItem mntmSalir = new JMenuItem("Salir");
-		MenuArchivo.add(mntmSalir);
-		
-		JMenu mnCreditos = new JMenu("Ayuda");
-		menuBar.add(mnCreditos);
-		
+
+		JMenu mnArchivo = new JMenu("Archivo");
+		menuBar.add(mnArchivo);
+
+		JMenuItem mntmGuardarEstado = new JMenuItem("Guardar estado");
+		mnArchivo.add(mntmGuardarEstado);
+
+		JMenuItem mntmSalir = new JMenuItem("salir");
+		mnArchivo.add(mntmSalir);
+
+		JMenu mnAyuda = new JMenu("Ayuda");
+		menuBar.add(mnAyuda);
+
 		JMenuItem mntmAcercaDe = new JMenuItem("Acerca de");
-		mnCreditos.add(mntmAcercaDe);
-			
+		mnAyuda.add(mntmAcercaDe);
+
+		JPanel panelNorte = new JPanel();
+		frame.getContentPane().add(panelNorte, BorderLayout.NORTH);
+
+		JButton btnKillProcess = new JButton("Kill process");
+		panelNorte.add(btnKillProcess);
+
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setResizeWeight(.25);
+		// splitPane.setDividerLocation();
+		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
+
+		JScrollPane scrollPane = new JScrollPane();
+		splitPane.setLeftComponent(scrollPane);
+
+		tableProcess = new JTable();
+		scrollPane.setViewportView(tableProcess);
+
+		JTabbedPane panelPestañas = new JTabbedPane(JTabbedPane.TOP);
+		splitPane.setRightComponent(panelPestañas);
+
+		JLayeredPane usoCPU = new JLayeredPane();
+		panelPestañas.addTab("Uso CPU", null, usoCPU, null);
+		
+		JPanel panelUsoCPU = new JPanel();
+		panelUsoCPU.setMaximumSize(getMaximumSize());
+		panelUsoCPU.setBounds(50, 50, 500, 400);
+		
+		DefaultPieDataset data = new DefaultPieDataset();
+        data.setValue("C", 40);
+        data.setValue("Java", 45);
+        data.setValue("Python", 15);
+ 
+        LanzarProceso proceso = new LanzarProceso();
+        
+        
+        // Creando el Grafico
+        JFreeChart chart = ChartFactory.createPieChart(
+         "Uso de la CPU", 
+         data, 
+         true, 
+         true, 
+         false);
+ 
+        // Crear el Panel del Grafico con ChartPanel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        panelUsoCPU.add(chartPanel);
+        usoCPU.add(panelUsoCPU);
+		
+		JLayeredPane usoRAM = new JLayeredPane();
+		panelPestañas.addTab("Uso RAM", null, usoRAM, null);
+
+		JLayeredPane usoSwap = new JLayeredPane();
+		panelPestañas.addTab("Uso Swap", null, usoSwap, null);
+
 	}
 }
