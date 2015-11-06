@@ -2,13 +2,14 @@ package logica;
 
 public class Proceso {
 	//Atributos cuando realizamos el comando 'ps aux'
-	private String user, pid, usoCPU, usoMem, vsz, rss, tty, stat, start, time, command;
+	private String user, pid, vsz, rss, tty, stat, start, time, command;
+	private double usoMemoria,usoCPU;
 	/**
 	 * Constructor
 	 * @param user
 	 * @param pid
 	 * @param usoCPU
-	 * @param usoMem
+	 * @param usoMemoria
 	 * @param vsz
 	 * @param rss
 	 * @param tty
@@ -19,17 +20,10 @@ public class Proceso {
 	 */
 	public Proceso(String user, String pid, String usoCPU, String usoMem, String vsz, String rss, String tty,
 			String stat, String start, String time, String commando) {
-		this.user = user;
-		this.pid = pid;
-		this.usoCPU = usoCPU;
-		this.usoMem = usoMem;
-		this.vsz = vsz;
-		this.rss = rss;
-		this.tty = tty;
-		this.stat = stat;
-		this.start = start;
-		this.time = time;
-		this.command = commando;
+		this.user = user;this.pid = pid;this.vsz = vsz;this.rss = rss;
+		this.tty = tty;this.stat = stat;this.start = start;this.time = time;this.command = commando;
+		this.usoCPU = Double.parseDouble(usoCPU);
+		this.usoMemoria = Double.parseDouble(usoMem);
 	}
 	
 	//getter
@@ -49,14 +43,14 @@ public class Proceso {
 	/**
 	 * @return the usoCPU
 	 */
-	public String getUsoCPU() {
+	public Double getUsoCPU() {
 		return usoCPU;
 	}
 	/**
-	 * @return the usoMem
+	 * @return the usoMemoria
 	 */
-	public String getUsoMem() {
-		return usoMem;
+	public Double getUsoMemoria() {
+		return usoMemoria;
 	}
 	/**
 	 * @return the vsz

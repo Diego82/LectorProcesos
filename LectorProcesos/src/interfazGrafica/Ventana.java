@@ -1,7 +1,6 @@
 package interfazGrafica; 
 
 import java.awt.EventQueue;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -32,13 +31,14 @@ public class Ventana extends JFrame {
 	private JFrame frame;
 	// JPanel panel = new JPanel();
 	private JTablaModelo modelo = null;
-	List<Proceso> listadoProcesos = new ArrayList<Proceso>();
+	static List<Proceso> listadoProcesos;
 	private JTable tableProcess;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		listadoProcesos = LanzarProceso.lanzar("ps", "aux");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -110,14 +110,14 @@ public class Ventana extends JFrame {
 		JPanel panelUsoCPU = new JPanel();
 		panelUsoCPU.setMaximumSize(getMaximumSize());
 		panelUsoCPU.setBounds(50, 50, 500, 400);
-		
+
+		//Creamos la base de datos del proceso
 		DefaultPieDataset data = new DefaultPieDataset();
-        data.setValue("C", 40);
-        data.setValue("Java", 45);
-        data.setValue("Python", 15);
- 
-        LanzarProceso proceso = new LanzarProceso();
-        
+        for (int i = 0; i < listadoProcesos.size(); i++) {
+        	if(listadoProcesos.get(i).getUsoMemoria()>0.1)
+        		data.setValue(listadoProcesos.get(i).getPid(),listadoProcesos.get(i).getUsoMemoria());        
+		}
+                
         
         // Creando el Grafico
         JFreeChart chart = ChartFactory.createPieChart(
@@ -132,6 +132,7 @@ public class Ventana extends JFrame {
         panelUsoCPU.add(chartPanel);
         usoCPU.add(panelUsoCPU);
 		
+        
 		JLayeredPane usoRAM = new JLayeredPane();
 		panelPestañas.addTab("Uso RAM", null, usoRAM, null);
 

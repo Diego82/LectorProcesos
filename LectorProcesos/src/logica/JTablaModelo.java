@@ -37,7 +37,7 @@ public class JTablaModelo extends AbstractTableModel {
 		case 2:
 			return p.getUsoCPU();
 		case 3:
-			return p.getUsoMem();
+			return p.getUsoMemoria();
 		case 4:
 			return p.getVsz();
 		case 5:
