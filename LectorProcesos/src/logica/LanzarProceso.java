@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class LanzarProceso {
 
@@ -28,7 +27,6 @@ public class LanzarProceso {
 			String linea = null;
 			String campoComando = null;
 			ArrayList<String> campos = null;
-			Scanner scan = null;
 			linea = in.readLine();
 
 			while ((linea = in.readLine()) != null) {

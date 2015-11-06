@@ -4,8 +4,16 @@ public class Proceso {
 	//Atributos cuando realizamos el comando 'ps aux'
 	private String user, pid, vsz, rss, tty, stat, start, time, command;
 	private double usoMemoria,usoCPU;
+	
+	//constructor para el proceso TOP
+	public Proceso(String pid, String usuario, String orden, String usoCPU, String usoMemoria){
+		this.pid = pid; this.user = usuario; this.command = orden;
+		this.usoCPU = Double.parseDouble(usoCPU); this.usoMemoria = Double.parseDouble(usoMemoria);
+		
+	}
+	
 	/**
-	 * Constructor
+	 * Constructor para el proceso ps aux
 	 * @param user
 	 * @param pid
 	 * @param usoCPU

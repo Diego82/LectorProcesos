@@ -30,7 +30,7 @@ public class Ventana extends JFrame {
 
 	private JFrame frame;
 	// JPanel panel = new JPanel();
-	private JTablaModelo modelo = null;
+	private static JTablaModelo modelo;
 	static List<Proceso> listadoProcesos;
 	private JTable tableProcess;
 
@@ -39,6 +39,7 @@ public class Ventana extends JFrame {
 	 */
 	public static void main(String[] args) {
 		listadoProcesos = LanzarProceso.lanzar("ps", "aux");
+		modelo = new JTablaModelo(listadoProcesos);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -98,7 +99,7 @@ public class Ventana extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		splitPane.setLeftComponent(scrollPane);
 
-		tableProcess = new JTable();
+		tableProcess = new JTable(modelo);
 		scrollPane.setViewportView(tableProcess);
 
 		JTabbedPane panelPestañas = new JTabbedPane(JTabbedPane.TOP);
@@ -111,6 +112,7 @@ public class Ventana extends JFrame {
 		panelUsoCPU.setMaximumSize(getMaximumSize());
 		panelUsoCPU.setBounds(50, 50, 500, 400);
 
+		modelo = new JTablaModelo(listadoProcesos);
 		//Creamos la base de datos del proceso
 		DefaultPieDataset data = new DefaultPieDataset();
         for (int i = 0; i < listadoProcesos.size(); i++) {
