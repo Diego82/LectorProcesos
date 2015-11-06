@@ -92,7 +92,8 @@ public class Ventana extends JFrame {
 		panelNorte.add(btnKillProcess);
 
 		JSplitPane splitPane = new JSplitPane();
-		splitPane.setResizeWeight(.25);
+		splitPane.setResizeWeight(.5);
+		//splitPane.setDividerLocation(0.5);
 		// splitPane.setDividerLocation();
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 
@@ -105,34 +106,22 @@ public class Ventana extends JFrame {
 		JTabbedPane panelPestañas = new JTabbedPane(JTabbedPane.TOP);
 		splitPane.setRightComponent(panelPestañas);
 
-		JLayeredPane usoCPU = new JLayeredPane();
-		panelPestañas.addTab("Uso CPU", null, usoCPU, null);
-		
 		JPanel panelUsoCPU = new JPanel();
-		panelUsoCPU.setMaximumSize(getMaximumSize());
-		panelUsoCPU.setBounds(50, 50, 500, 400);
+		//panelUsoCPU.setMaximumSize(getMaximumSize());
+		//panelUsoCPU.setBounds(50, 50, 500, 400);
+		
+		//JLayeredPane usoCPU = new JLayeredPane();
+		panelPestañas.addTab("Uso CPU", null, panelUsoCPU, null);
+		
+		
 
 		modelo = new JTablaModelo(listadoProcesos);
 		//Creamos la base de datos del proceso
-		DefaultPieDataset data = new DefaultPieDataset();
-        for (int i = 0; i < listadoProcesos.size(); i++) {
-        	if(listadoProcesos.get(i).getUsoMemoria()>0.1)
-        		data.setValue(listadoProcesos.get(i).getPid(),listadoProcesos.get(i).getUsoMemoria());        
-		}
-                
-        
-        // Creando el Grafico
-        JFreeChart chart = ChartFactory.createPieChart(
-         "Uso de la CPU", 
-         data, 
-         true, 
-         true, 
-         false);
- 
-        // Crear el Panel del Grafico con ChartPanel
-        ChartPanel chartPanel = new ChartPanel(chart);
-        panelUsoCPU.add(chartPanel);
-        usoCPU.add(panelUsoCPU);
+		
+		JChartPanelPlantilla plantilla = new JChartPanelPlantilla(listadoProcesos);
+		
+        panelUsoCPU.add(plantilla.ventana());
+        //usoCPU.add(panelUsoCPU);
 		
         
 		JLayeredPane usoRAM = new JLayeredPane();
@@ -140,6 +129,7 @@ public class Ventana extends JFrame {
 
 		JLayeredPane usoSwap = new JLayeredPane();
 		panelPestañas.addTab("Uso Swap", null, usoSwap, null);
+		
 
 	}
 }
