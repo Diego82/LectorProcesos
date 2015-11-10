@@ -11,8 +11,10 @@ import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import javax.swing.JTable;
 import logica.JTablaModelo;
-import logica.Proceso;
-import logica.LanzarProceso;
+import logica.LanzarProcesoFree;
+import logica.ProcesoPsAux;
+import logica.ProcesoFree;
+import logica.LanzarProcesoPsaux;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JSplitPane;
@@ -24,16 +26,18 @@ public class Ventana extends JFrame {
 
 	private JFrame frame;
 	// JPanel panel = new JPanel();
-	private static JTablaModelo modelo;
-	static List<Proceso> listadoProcesos;
+	private static JTablaModelo modeloCPU;
+	static List<ProcesoPsAux> listadoProcesosCPU;
+	static List<ProcesoFree> listadoProcesosMemoria;
 	private JTable tableProcess;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		listadoProcesos = LanzarProceso.lanzar("ps", "aux");
-		modelo = new JTablaModelo(listadoProcesos);
+		listadoProcesosCPU = LanzarProcesoPsaux.lanzar("ps", "aux");
+		listadoProcesosMemoria = LanzarProcesoFree.lanzarFree("free");
+		modeloCPU = new JTablaModelo(listadoProcesosCPU);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -107,7 +111,7 @@ public class Ventana extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		splitPane.setLeftComponent(scrollPane);
 
-		tableProcess = new JTable(modelo);
+		tableProcess = new JTable(modeloCPU);
 		scrollPane.setViewportView(tableProcess);
 
 		JTabbedPane panelPestañas = new JTabbedPane(JTabbedPane.TOP);
@@ -121,13 +125,14 @@ public class Ventana extends JFrame {
 		panelPestañas.addTab("Uso RAM", null, panelUsoRAM, null);	
 		panelPestañas.addTab("Uso Swap", null, panelUsoSWAP, null);
 		
-		modelo = new JTablaModelo(listadoProcesos);
+		modeloCPU = new JTablaModelo(listadoProcesosCPU);
 		
-		JChartPanelPlantilla plantilla = new JChartPanelPlantilla(listadoProcesos);
+		JChartPanelPlantilla plantilla = new JChartPanelPlantilla(listadoProcesosCPU);
+		JChartPanelPlantilla plantilla2 = new JChartPanelPlantilla(listadoProcesosMemoria,1);
 		
 		panelUsoCPU.add(plantilla.ventanaCPU());
-		panelUsoRAM.add(plantilla.ventanaRAM());
-		panelUsoSWAP.add(plantilla.ventanaSWAP());
+		panelUsoRAM.add(plantilla2.ventanaRAM());
+		//panelUsoSWAP.add(plantilla.ventanaSWAP());
 
 	}
 }

@@ -6,10 +6,10 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class JTablaModelo extends AbstractTableModel {
 
-	List<Proceso> listadoAux;
+	List<ProcesoPsAux> listadoAux;
 	String[] cabecera = {"user", "pid", "usoCPU", "usoMem", "vsz", "rss", "tty", "stat", "start", "time", "command"};
 	
-	public JTablaModelo (List<Proceso> lista) {
+	public JTablaModelo (List<ProcesoPsAux> lista) {
 		this.listadoAux = lista;
 	}
 	
@@ -28,7 +28,7 @@ public class JTablaModelo extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		Proceso p = listadoAux.get(rowIndex);
+		ProcesoPsAux p = listadoAux.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
 			return p.getUser();
