@@ -10,12 +10,14 @@ import java.util.List;
 public class LanzarProcesoPsaux {
 
 	public static List<ProcesoPsAux> lanzar(String comando, String modificador) {
-		
+		 
 		List<String> comandos = new ArrayList<String>();
 		comandos.add(comando);
 		comandos.add(modificador);
+		
+		
 		List<ProcesoPsAux> listado = new ArrayList<ProcesoPsAux>();
-
+		
 		ProcessBuilder pBuilder = new ProcessBuilder(comandos);
 		Process proceso1 = null;
 		BufferedReader in = null;
@@ -51,12 +53,39 @@ public class LanzarProcesoPsaux {
 												campos.get(8), campos.get(9), 
 												campos.get(10));
 				listado.add(proceso);
-				
 			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		List<String> comandos2 = new ArrayList<String>();
+		String modificador2="";
+		comandos.add("ps");
+		comandos.add("-p");
+		comandos.add(modificador2);
+		comandos.add("-o");
+		comandos.add("comm =");
+		List<String> listado2 = new ArrayList<String>();
+		
+		try {
+			proceso1 = pBuilder.start();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return listado;
+		
+	}
+	public static void main(String[] args) {
+		
+		long ini = System.currentTimeMillis();	
+		LanzarProcesoPsaux proceso= new LanzarProcesoPsaux();
+		long fin = System.currentTimeMillis();
+		System.out.printf("Tiempo del proceso: "+(fin-ini));
 	}
 }

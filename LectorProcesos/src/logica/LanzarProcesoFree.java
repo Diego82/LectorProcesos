@@ -58,11 +58,8 @@ public class LanzarProcesoFree {
 				}
 				control++;
 			}
-			System.out.println(proceso);
+
 			listado.add(proceso);
-			/*
-			 * System.out.println(campo); scan.close();
-			 */
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

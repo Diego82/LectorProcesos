@@ -4,14 +4,14 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 @SuppressWarnings("serial")
-public class JTablaModelo extends AbstractTableModel {
+public class JTablaModelo3 extends AbstractTableModel {
 
-	List<ProcesoPsAux> listadoAux;
-	String[] cabecera = {"user", "pid", "usoCPU", "usoMem", "vsz", "rss", "tty", "stat", "start", "time", "command"};
+	List<ProcesoServicio> listadoAux;
+	//String[] cabecera = {"user", "pid", "usoCPU", "usoMem", "vsz", "rss", "tty", "stat", "start", "time", "command"};
 	//String[] cabecera2 = {"memoria en uso", "memoria libre", "memoria compartida"};
-	//String[] cabecera3 = {"Estado", "nombre"};
+	String[] cabecera = {"Estado", "nombre"};
 	
-	public JTablaModelo (List<ProcesoPsAux> lista) {
+	public JTablaModelo3 (List<ProcesoServicio> lista) {
 		this.listadoAux = lista;
 	}
 	
@@ -30,30 +30,12 @@ public class JTablaModelo extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		ProcesoPsAux p = listadoAux.get(rowIndex);
+		ProcesoServicio p = listadoAux.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			return p.getUser();
+			return p.getEstadoServicio();
 		case 1:
-			return p.getPid();
-		case 2:
-			return p.getUsoCPU();
-		case 3:
-			return p.getUsoMemoria();
-		case 4:
-			return p.getVsz();
-		case 5:
-			return p.getRss();
-		case 6:
-			return p.getTty();
-		case 7:
-			return p.getStat();
-		case 8:
-			return p.getStart(); 
-		case 9:
-			return p.getTime();
-		case 10:
-			return p.getCommand();
+			return p.getNombreServicio();
 		default:
 			return "";
 		}
