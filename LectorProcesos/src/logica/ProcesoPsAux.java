@@ -102,4 +102,10 @@ public class ProcesoPsAux {
 	public String getCommand() {
 		return command;
 	}
+	/**
+	 * @param comando
+	 */
+	public void setCommand(String comando) {
+		this.command = comando;
+	}
 }

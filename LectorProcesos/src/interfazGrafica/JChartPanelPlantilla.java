@@ -5,6 +5,8 @@ import java.util.List;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 import logica.ProcesoPsAux;
@@ -22,21 +24,9 @@ public class JChartPanelPlantilla {
 
 	//Refactorizar a Map para hacerlo mas eficiente
 
-	
-	//Preguntar por los constructores repetidos
-	
-	
-	public JChartPanelPlantilla(List<ProcesoPsAux> listaAux) {
-		this.listaAux = listaAux;
-	}
-
-	public JChartPanelPlantilla(List<ProcesoFree> listaAux, int numero) {
-		this.listaAux2 = listaAux;
-	}
-	
-	public JChartPanelPlantilla(List<ProcesoServicio> listaAux, boolean señal) {
-		this.listaAux3 = listaAux;
-	}
+	public JChartPanelPlantilla(List<ProcesoPsAux> listaAux) {this.listaAux = listaAux;}
+	public JChartPanelPlantilla(List<ProcesoFree> listaAux, int n) {this.listaAux2 = listaAux;}
+	public JChartPanelPlantilla(List<ProcesoServicio> listaAux, boolean a) {this.listaAux3 = listaAux;}
 	
 	public ChartPanel ventanaCPU(){
 
@@ -56,12 +46,7 @@ public class JChartPanelPlantilla {
         data.setValue("Otros procesos", otrosProcesos);
                 
         // Creando el Grafico
-        chart1 = ChartFactory.createPieChart3D(
-         "Uso de la CPU", 
-         data, 
-         true, 
-         true, 
-         false);
+        chart1 = ChartFactory.createPieChart3D("Uso de la CPU", data, true, true, false);
  
         // Crear el Panel del Grafico con ChartPanel
         ChartPanel chartPanel = new ChartPanel(chart1);
@@ -86,25 +71,21 @@ public class JChartPanelPlantilla {
 	
 	public ChartPanel ventanaServicios(){
 
-		//Con esta clase cargamos los datos que queremos reflejar 
-		DefaultPieDataset data = new DefaultPieDataset();
-        int activos=0, inactivos=0, indeterminados=0, total=0;
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		int activos=0, inactivos=0;
+		//,indeterminados=0, total=0;
 		for (ProcesoServicio procesoServicio : listaAux3) {
 			if (procesoServicio.getEstadoServicio().contains("+")) activos++;
 			if (procesoServicio.getEstadoServicio().contains("-")) inactivos++;
 			//if (procesoServicio.getEstadoServicio().contains("?")) indeterminados++;
-			total++;
+			//total++;
 			//System.out.println(procesoServicio);
 		}
-		data.setValue("Servicios Activos",activos);
-		data.setValue("Servicios Inactivos",inactivos);
-		//data.setValue("Servicios Indeterminados",indeterminados);
-		//System.out.println("Activos: "+activos+", inactivos: "+inactivos+", indeterminados: "+indeterminados+", totales:"+listaAux3.size());
-        
-		// Creando el Grafico
-        chart3 = ChartFactory.createRingChart("Servicios", data, true, true, false);
-        // Crear el Panel del Grafico con ChartPanel
-        
+		dataset.setValue(activos, "", "Activos");
+		dataset.setValue(inactivos, "", "Pasivos");
+		chart3 = ChartFactory.createBarChart("Servicios en ejecución",
+				"Estado", null, dataset, PlotOrientation.HORIZONTAL, false, true, false);
+		
         ChartPanel chartPanel = new ChartPanel(chart3);
         return chartPanel;
 	}

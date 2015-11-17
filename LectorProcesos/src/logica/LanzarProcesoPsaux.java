@@ -6,18 +6,19 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class LanzarProcesoPsaux {
 
 	public static List<ProcesoPsAux> lanzar(String comando, String modificador) {
-		 
+
 		List<String> comandos = new ArrayList<String>();
 		comandos.add(comando);
 		comandos.add(modificador);
-		
-		
+
 		List<ProcesoPsAux> listado = new ArrayList<ProcesoPsAux>();
-		
+		List<ProcesoNombre> listado2 = new ArrayList<ProcesoNombre>();
+
 		ProcessBuilder pBuilder = new ProcessBuilder(comandos);
 		Process proceso1 = null;
 		BufferedReader in = null;
@@ -46,46 +47,55 @@ public class LanzarProcesoPsaux {
 				}
 				campos.set(10, campoComando);
 
-				ProcesoPsAux proceso = new ProcesoPsAux(campos.get(0), campos.get(1), 
-												campos.get(2), campos.get(3),
-												campos.get(4), campos.get(5), 
-												campos.get(6), campos.get(7), 
-												campos.get(8), campos.get(9), 
-												campos.get(10));
+				ProcesoPsAux proceso = new ProcesoPsAux(campos.get(0), campos.get(1), campos.get(2), campos.get(3),
+						campos.get(4), campos.get(5), campos.get(6), campos.get(7), campos.get(8),
+						campos.get(9), campos.get(10));
 				listado.add(proceso);
+				int numeroPID = Integer.parseInt(campos.get(1));
+				ProcesoNombre proceso2 = new ProcesoNombre(numeroPID, "");
+				listado2.add(proceso2);
 			}
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
-		List<String> comandos2 = new ArrayList<String>();
-		String modificador2="";
-		comandos.add("ps");
-		comandos.add("-p");
-		comandos.add(modificador2);
-		comandos.add("-o");
-		comandos.add("comm =");
-		List<String> listado2 = new ArrayList<String>();
 		
+		//Ver como se podria lanzar el proceso para atrapar los nombres de los comandos
+		
+
+/*		List<String> comandos2 = new ArrayList<String>();
+		Scanner in2 = new Scanner(System.in);
 		try {
+
+			String pid = listado2.get(0).getPid() + "";
+			System.out.println(pid);
+			comandos.add("ps");
+			comandos.add("-p");
+			comandos.add("1");
+			comandos.add("-o");
+			comandos.add("comm =");
 			proceso1 = pBuilder.start();
 			
-			
+			String linea = "";
+			//in.readLine();
+			linea = in.readLine();
+			System.out.println(linea);
+			//System.out.println(listado2.get(0).getPid() + " " + listado2.get(0).getName());
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-
+		} 
+*/
 		return listado;
-		
-	}
-	public static void main(String[] args) {
-		
-		long ini = System.currentTimeMillis();	
-		LanzarProcesoPsaux proceso= new LanzarProcesoPsaux();
-		long fin = System.currentTimeMillis();
-		System.out.printf("Tiempo del proceso: "+(fin-ini));
 	}
 }

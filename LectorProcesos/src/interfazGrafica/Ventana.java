@@ -21,7 +21,6 @@ import logica.LanzarProcesoPsaux;
 import logica.LanzarServicio;
 
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import java.awt.event.ActionListener;
@@ -35,6 +34,7 @@ import org.jfree.chart.JFreeChart;
 
 import javax.swing.event.ChangeEvent;
 
+@SuppressWarnings("serial")
 public class Ventana extends JFrame {
 
 	private JFrame frame;
@@ -83,7 +83,7 @@ public class Ventana extends JFrame {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(200, 150, 950, 600);
+		frame.setBounds(100, 0, 800, 900);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		
@@ -91,19 +91,19 @@ public class Ventana extends JFrame {
 		frame.getContentPane().add(panelNorte, BorderLayout.NORTH);
 
 		JSplitPane splitPane = new JSplitPane();
-		splitPane.setResizeWeight(.5);
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane.setResizeWeight(.65);
 
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 
 		JScrollPane scrollPane = new JScrollPane();
-		splitPane.setLeftComponent(scrollPane);
+		splitPane.setRightComponent(scrollPane);
 		
 		tableProcess = new JTable(modeloCPU);
 		scrollPane.setViewportView(tableProcess);
 
 		JTabbedPane panelPestañas = new JTabbedPane(JTabbedPane.TOP);
-		
-		splitPane.setRightComponent(panelPestañas);
+		splitPane.setLeftComponent(panelPestañas);
 
 		JPanel panelUsoCPU = new JPanel();
 		JPanel panelUsoRAM = new JPanel();
@@ -119,7 +119,7 @@ public class Ventana extends JFrame {
 		 */
 		panelPestañas.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				System.out.println("pestaña "+ panelPestañas.getSelectedIndex());
+				//System.out.println("pestaña "+ panelPestañas.getSelectedIndex());
 				
 				if(panelPestañas.getSelectedIndex()==0){
 					//Cargar procesos en la tabla
