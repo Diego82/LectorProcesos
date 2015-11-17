@@ -173,26 +173,80 @@ public class Ventana extends JFrame {
 		mntmGuardarGrafica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+			
+				JFreeChart aux1= JChartPanelPlantilla.chart1;
+				JFreeChart aux2= JChartPanelPlantilla.chart2;
+				JFreeChart aux3= JChartPanelPlantilla.chart3;
+				String nameFileCPU = "grafico_CPU.jpg";
+				String nameFileMemoria = "grafico_Memoria.jpg";
+				String nameFileServicios = "grafico_Servicios.jpg";
 				
+				public void 
+					
+				}
 				
-				//Preguntar como creamos el archivo en el directorio home
-				
-				
-				
-				//File ruta = new File("~/graficas/grafico.jpg");
-				//ruta.mkdirs();
-				JFreeChart aux= JChartPanelPlantilla.chart1;
 				try {
-					ChartUtilities.saveChartAsJPEG(new File("grafico_CPU.jpg"), aux, 800, 500);
+					ChartUtilities.saveChartAsJPEG(new File(nameFileMemoria), aux2, 800, 500);
 					System.out.println("entramos y pintamos");
 					JOptionPane.showMessageDialog(null, "Guardado con exito", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-
 					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+				//Preguntar como creamos el archivo en el directorio home
+				/*switch (panelPestañas.getSelectedIndex()) {
+				case 0:
+					//File ruta = new File("~/graficas/grafico.jpg");
+					//ruta.mkdirs();
+					try {
+						ChartUtilities.saveChartAsJPEG(new File(nameFileCPU), aux1, 800, 500);
+						System.out.println("entramos y pintamos");
+						JOptionPane.showMessageDialog(null, "Guardado con exito", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					break;
+					
+				case 1:
+					//File ruta = new File("~/graficas/grafico.jpg");
+					//ruta.mkdirs();
+					try {
+						ChartUtilities.saveChartAsJPEG(new File(nameFileMemoria), aux2, 800, 500);
+						System.out.println("entramos y pintamos");
+						JOptionPane.showMessageDialog(null, "Guardado con exito", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+						
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					break;
+					
+				case 2:
+					//File ruta = new File("~/graficas/grafico.jpg");
+					//ruta.mkdirs();
+					
+					try {
+						ChartUtilities.saveChartAsJPEG(new File(nameFileServicios), aux3, 800, 500);
+						System.out.println("entramos y pintamos");
+						JOptionPane.showMessageDialog(null, "Guardado con exito", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+						
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					break;
+
+				default:
+					break;
+				}*/
+				
+				
 			}
 		});
 		mnArchivo.add(mntmGuardarGrafica);
