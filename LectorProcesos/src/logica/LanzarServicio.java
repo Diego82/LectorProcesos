@@ -44,7 +44,7 @@ public class LanzarServicio {
 
 					ProcesoServicio proceso = new ProcesoServicio(campos.get(0), campos.get(1));
 					listado.add(proceso);
-					System.out.println(proceso);
+					//System.out.println(proceso);
 				}
 			
 			} catch (IOException e) {

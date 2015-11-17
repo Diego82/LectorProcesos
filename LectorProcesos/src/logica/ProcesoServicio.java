@@ -28,7 +28,7 @@ public class ProcesoServicio {
 
 	@Override
 	public String toString() {
-		return "ProcesoServio [estadoServicio=" + estadoServicio + ", nombreServicio=" + nombreServicio + "]";
+		return "ProcesoServicio [estadoServicio=" + estadoServicio + ", nombreServicio=" + nombreServicio + "]";
 	}
 	
 }

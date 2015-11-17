@@ -7,9 +7,7 @@ import javax.swing.table.AbstractTableModel;
 public class JTablaModelo3 extends AbstractTableModel {
 
 	List<ProcesoServicio> listadoAux;
-	//String[] cabecera = {"user", "pid", "usoCPU", "usoMem", "vsz", "rss", "tty", "stat", "start", "time", "command"};
-	//String[] cabecera2 = {"memoria en uso", "memoria libre", "memoria compartida"};
-	String[] cabecera = {"Estado", "nombre"};
+	String[] cabecera = {"Estado", "Nombre"};
 	
 	public JTablaModelo3 (List<ProcesoServicio> lista) {
 		this.listadoAux = lista;

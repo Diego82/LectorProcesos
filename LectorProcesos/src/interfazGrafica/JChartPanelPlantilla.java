@@ -65,7 +65,6 @@ public class JChartPanelPlantilla {
  
         // Crear el Panel del Grafico con ChartPanel
         ChartPanel chartPanel = new ChartPanel(chart1);
-        
         return chartPanel;
 	}
 	
@@ -76,8 +75,10 @@ public class JChartPanelPlantilla {
 		data.setValue("Memoria en uso",listaAux2.get(0).getMemUsed());
 		data.setValue("Memoria libre",listaAux2.get(0).getMemLibre());
 		data.setValue("Memoria compartida",listaAux2.get(0).getMemCompartida());
-        // Creando el Grafico
+
+		// Creando el Grafico
         chart2 = ChartFactory.createRingChart("Uso de la Memoria RAM", data, true, true, false);
+        
         // Crear el Panel del Grafico con ChartPanel
         ChartPanel chartPanel = new ChartPanel(chart2);
         return chartPanel;
@@ -91,17 +92,19 @@ public class JChartPanelPlantilla {
 		for (ProcesoServicio procesoServicio : listaAux3) {
 			if (procesoServicio.getEstadoServicio().contains("+")) activos++;
 			if (procesoServicio.getEstadoServicio().contains("-")) inactivos++;
-			if (procesoServicio.getEstadoServicio().contains("?")) indeterminados++;
+			//if (procesoServicio.getEstadoServicio().contains("?")) indeterminados++;
 			total++;
 			//System.out.println(procesoServicio);
 		}
 		data.setValue("Servicios Activos",activos);
 		data.setValue("Servicios Inactivos",inactivos);
-		data.setValue("Servicios Indeterminados",indeterminados);
+		//data.setValue("Servicios Indeterminados",indeterminados);
 		//System.out.println("Activos: "+activos+", inactivos: "+inactivos+", indeterminados: "+indeterminados+", totales:"+listaAux3.size());
-        // Creando el Grafico
-        chart3 = ChartFactory.createRingChart("Uso de la Memoria RAM", data, true, true, false);
+        
+		// Creando el Grafico
+        chart3 = ChartFactory.createRingChart("Servicios", data, true, true, false);
         // Crear el Panel del Grafico con ChartPanel
+        
         ChartPanel chartPanel = new ChartPanel(chart3);
         return chartPanel;
 	}
