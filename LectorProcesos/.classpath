@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="src/" kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/home/diego/workspace/LectorProcesos/LectorProcesos/jfreechart-1.0.19.jar"/>
-	<classpathentry kind="lib" path="/home/diego/workspace/LectorProcesos/LectorProcesos/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="/home/diego/git/LectorProcesos/LectorProcesos/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="/home/diego/git/LectorProcesos/LectorProcesos/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

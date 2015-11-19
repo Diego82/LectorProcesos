@@ -3,24 +3,25 @@ package logica;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Usamos esta clase para mostrar la tabla con los procesos del comando 'free'
+ */
 @SuppressWarnings("serial")
-public class JTableModelo2 extends AbstractTableModel {
+public class JTableModelFree extends AbstractTableModel {
 
-	
-	
-	//Preguntar a luis como cambiar la posicion de la grafica 
-	
-	
-	
+	// Atributos
 	List<ProcesoFree> listadoAux;
-	String[] cabecera = {"memTotal", "memUsed","memLibre", "memCompartida", "memBuffer",
-			"memCache", "memAplicaciones", "memAplicacionesLibre", "memTotalSwap",
-			"memUsedSwap", "memLibreSwap"};
-	
-	public JTableModelo2 (List<ProcesoFree> lista) {
+	String[] cabecera = { "Memoria Total", "En uso", "Libre", "Compartida", "Buffer", "Cache", "Aplicaciones",
+			"Aplicaciones Libre", "Total Swap", "Swap en uso", "Swap libre" };
+
+	/**
+	 * Constructor 
+	 * @param lista con los datos de memoria
+	 */
+	public JTableModelFree(List<ProcesoFree> lista) {
 		this.listadoAux = lista;
 	}
-	
+
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
@@ -55,7 +56,7 @@ public class JTableModelo2 extends AbstractTableModel {
 		case 7:
 			return p.getMemAplicacionesLibre();
 		case 8:
-			return p.getMemTotalSwap(); 
+			return p.getMemTotalSwap();
 		case 9:
 			return p.getMemUsedSwap();
 		case 10:
@@ -64,7 +65,7 @@ public class JTableModelo2 extends AbstractTableModel {
 			return "";
 		}
 	}
-	
+
 	@Override
 	public String getColumnName(int column) {
 		// TODO Auto-generated method stub

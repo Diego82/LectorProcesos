@@ -3,13 +3,16 @@ package logica;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Usamos esta clase para mostrar la tabla con los procesos del comando 'service --status-all' 
+ */
 @SuppressWarnings("serial")
-public class JTablaModelo3 extends AbstractTableModel {
+public class JTablaModelServicios extends AbstractTableModel {
 
 	List<ProcesoServicio> listadoAux;
 	String[] cabecera = {"Estado", "Nombre"};
 	
-	public JTablaModelo3 (List<ProcesoServicio> lista) {
+	public JTablaModelServicios (List<ProcesoServicio> lista) {
 		this.listadoAux = lista;
 	}
 	

@@ -3,18 +3,21 @@ package logica;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Usamos esta clase para mostrar la tabla con los procesos del comando 'ps -aux'
+ */
 @SuppressWarnings("serial")
-public class JTablaModelo extends AbstractTableModel {
+public class JTablaModelPsAux extends AbstractTableModel {
 
+	// Atributos
 	List<ProcesoPsAux> listadoAux;
-	String[] cabecera = {"user", "pid", "usoCPU", "usoMem", "vsz", "rss", "tty", "stat", "start", "time", "command"};
-	//String[] cabecera2 = {"memoria en uso", "memoria libre", "memoria compartida"};
-	//String[] cabecera3 = {"Estado", "nombre"};
+	String[] cabecera = { "user", "pid", "usoCPU", "usoMem", "vsz", "rss", "tty", "stat", "start", "time", "command" };
+
 	
-	public JTablaModelo (List<ProcesoPsAux> lista) {
+	public JTablaModelPsAux(List<ProcesoPsAux> lista) {
 		this.listadoAux = lista;
 	}
-	
+
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
@@ -49,7 +52,7 @@ public class JTablaModelo extends AbstractTableModel {
 		case 7:
 			return p.getStat();
 		case 8:
-			return p.getStart(); 
+			return p.getStart();
 		case 9:
 			return p.getTime();
 		case 10:
@@ -58,7 +61,7 @@ public class JTablaModelo extends AbstractTableModel {
 			return "";
 		}
 	}
-	
+
 	@Override
 	public String getColumnName(int column) {
 		// TODO Auto-generated method stub
