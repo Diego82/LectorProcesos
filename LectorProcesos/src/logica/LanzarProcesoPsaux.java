@@ -62,10 +62,13 @@ public class LanzarProcesoPsaux {
 						campos.get(4), campos.get(5), campos.get(6), campos.get(7), campos.get(8), campos.get(9),
 						campos.get(10));
 				listado.add(proceso);
-				int numeroPID = Integer.parseInt(campos.get(1));
-				ProcesoNombre proceso2 = new ProcesoNombre(numeroPID, "");
-				listado2.add(proceso2);
 			}
+				
+				
+				//int numeroPID = Integer.parseInt(campos.get(1));
+				//ProcesoNombre proceso2 = new ProcesoNombre(numeroPID, "");
+				//listado2.add(proceso2);
+			//}
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

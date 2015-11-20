@@ -13,7 +13,6 @@ public class JTablaModelPsAux extends AbstractTableModel {
 	List<ProcesoPsAux> listadoAux;
 	String[] cabecera = { "user", "pid", "usoCPU", "usoMem", "vsz", "rss", "tty", "stat", "start", "time", "command" };
 
-	
 	public JTablaModelPsAux(List<ProcesoPsAux> lista) {
 		this.listadoAux = lista;
 	}

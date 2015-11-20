@@ -5,13 +5,6 @@ public class ProcesoPsAux {
 	private String user, pid, vsz, rss, tty, stat, start, time, command;
 	private double usoMemoria,usoCPU;
 	
-	//constructor para el proceso TOP
-	public ProcesoPsAux(String pid, String usuario, String orden, String usoCPU, String usoMemoria){
-		this.pid = pid; this.user = usuario; this.command = orden;
-		this.usoCPU = Double.parseDouble(usoCPU); this.usoMemoria = Double.parseDouble(usoMemoria);
-		
-	}
-	
 	/**
 	 * Constructor para el proceso ps aux
 	 * @param user

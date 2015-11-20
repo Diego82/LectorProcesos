@@ -33,11 +33,12 @@ import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 
 import javax.swing.event.ChangeEvent;
+import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class Ventana extends JFrame {
 
-	private JFrame frame;
+	private JFrame frmMonitoreat;
 	private static JTablaModelPsAux modeloCPU;
 	private static JTableModelFree modeloMemoria;
 	private static JTablaModelServicios modeloServicios;
@@ -52,9 +53,14 @@ public class Ventana extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
+		// Lanzamos los procesos y recogemos las listas con los datos recibidos
 		listadoProcesosCPU = LanzarProcesoPsaux.lanzar("ps", "aux");
 		listadoProcesosMemoria = LanzarProcesoFree.lanzarFree("free");
 		listadoServicios = LanzarServicio.lanzarService("service", "--status-all");
+
+		// Cargamos las tablas cons los datos recogidos de las listas para
+		// mostrar posteriormente
 		modeloCPU = new JTablaModelPsAux(listadoProcesosCPU);
 		modeloMemoria = new JTableModelFree(listadoProcesosMemoria);
 		modeloServicios = new JTablaModelServicios(listadoServicios);
@@ -62,7 +68,7 @@ public class Ventana extends JFrame {
 			public void run() {
 				try {
 					Ventana window = new Ventana();
-					window.frame.setVisible(true);
+					window.frmMonitoreat.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -81,26 +87,34 @@ public class Ventana extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 0, 800, 900);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMonitoreat = new JFrame();
+		frmMonitoreat.setIconImage(Toolkit.getDefaultToolkit().getImage("/home/diego/git/LectorProcesos/LectorProcesos/status.png"));
+		frmMonitoreat.setTitle("Monitorea-T");
+		frmMonitoreat.setBounds(100, 0, 800, 900);
+		frmMonitoreat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		/**
 		 * Creamos el grafico
 		 */
 		JPanel panelNorte = new JPanel();
-		frame.getContentPane().add(panelNorte, BorderLayout.NORTH);
+		frmMonitoreat.getContentPane().add(panelNorte, BorderLayout.NORTH);
 
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setResizeWeight(.65);
 
-		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
+		frmMonitoreat.getContentPane().add(splitPane, BorderLayout.CENTER);
 
 		JScrollPane scrollPane = new JScrollPane();
 		splitPane.setRightComponent(scrollPane);
 
+		// Aqui cargamos los diferentes JTable que vamos a utilizar en las
+		// diferentes vistas del programa y cargamos por defecto la primera
+		// pestaña con la grafica
+
 		tableProcesoPsAux = new JTable(modeloCPU);
+		tableProcessFree = new JTable(modeloMemoria);
+		tableProcessServicios = new JTable(modeloServicios);
 		scrollPane.setViewportView(tableProcesoPsAux);
 
 		JTabbedPane panelPestañas = new JTabbedPane(JTabbedPane.TOP);
@@ -122,23 +136,20 @@ public class Ventana extends JFrame {
 			public void stateChanged(ChangeEvent e) {
 
 				if (panelPestañas.getSelectedIndex() == 0) {
-					// Cargar procesos en la tabla
-					tableProcesoPsAux = new JTable(modeloCPU);
+					// Muestra en la tabla los procesos ps aux
 					scrollPane.setViewportView(tableProcesoPsAux);
-					modeloCPU = new JTablaModelPsAux(listadoProcesosCPU);
 				} else if (panelPestañas.getSelectedIndex() == 1) {
-					// cargar datos de memoria
-					tableProcessFree = new JTable(modeloMemoria);
+					// Muestra en la tabla los procesos free
 					scrollPane.setViewportView(tableProcessFree);
-					modeloMemoria = new JTableModelFree(listadoProcesosMemoria);
 				} else {
-					// cargar servicios
-					tableProcessServicios = new JTable(modeloServicios);
+					// Muestra en la tabla el estado de los servicios
 					scrollPane.setViewportView(tableProcessServicios);
-					modeloServicios = new JTablaModelServicios(listadoServicios);
 				}
 			}
 		});
+
+		// Aqui creamos los JChartPanel necesarios para mostrar las graficas y
+		// las añadimos a sus respectivas pestañas
 
 		JChartPanelPlantilla plantilla = new JChartPanelPlantilla(listadoProcesosCPU);
 		panelUsoCPU.add(plantilla.ventanaCPU());
@@ -149,8 +160,10 @@ public class Ventana extends JFrame {
 		JChartPanelPlantilla plantilla3 = new JChartPanelPlantilla(listadoServicios, true);
 		panelServicios.add(plantilla3.ventanaServicios());
 
+		// Creamos la barra menu
+
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		frmMonitoreat.setJMenuBar(menuBar);
 
 		JMenu mnArchivo = new JMenu("Archivo");
 		menuBar.add(mnArchivo);
@@ -234,7 +247,6 @@ public class Ventana extends JFrame {
 		// ruta.mkdirs();
 		try {
 			ChartUtilities.saveChartAsJPEG(new File(nameFile), chart, 800, 500);
-			System.out.println("entramos y pintamos");
 			JOptionPane.showMessageDialog(null, "El archivo se ha guardado con exito", "Informacion",
 					JOptionPane.INFORMATION_MESSAGE);
 

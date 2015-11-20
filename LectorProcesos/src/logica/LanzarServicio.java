@@ -63,6 +63,7 @@ public class LanzarServicio {
 				ProcesoServicio proceso = new ProcesoServicio(campos.get(0), campos.get(1));
 				listado.add(proceso);
 			}
+			//System.out.println(listado);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

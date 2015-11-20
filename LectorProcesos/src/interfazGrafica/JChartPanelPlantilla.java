@@ -15,7 +15,8 @@ import logica.ProcesoFree;
 
 /**
  * Usamos esta clase como plantilla para obtener las diferentes gráficas de los
- * procesos que vamos a lanzar
+ * procesos que vamos a lanzar Declaramos static las variables chart1, chart2 y
+ * chart3 para poser utilizarlas para guardar las gráficas
  * 
  */
 public class JChartPanelPlantilla {
@@ -100,24 +101,25 @@ public class JChartPanelPlantilla {
 	public ChartPanel ventanaServicios() {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		int activos = 0, inactivos = 0, indeterminados=0;
+		int activos = 0, inactivos = 0, indeterminados = 0;
 		for (ProcesoServicio procesoServicio : listaAux3) {
-			if (procesoServicio.getEstadoServicio().contains("+"))
-				procesoServicio.setEstadoServicio("Activos");
+			if (procesoServicio.getEstadoServicio().contains("+")) {
+				procesoServicio.setEstadoServicio("Activo");
 				activos++;
-			if (procesoServicio.getEstadoServicio().contains("-"))
-				procesoServicio.setEstadoServicio("Detenidos");
+			}
+			if (procesoServicio.getEstadoServicio().contains("-")) {
+				procesoServicio.setEstadoServicio("Detenido");
 				inactivos++;
-			if (procesoServicio.getEstadoServicio().contains("?"))
-				
+			}
+			if (procesoServicio.getEstadoServicio().contains("?")) {
+				procesoServicio.setEstadoServicio("Indeterminado");
 				indeterminados++;
-			// total++;
-			// System.out.println(procesoServicio);
+			}
 		}
 		dataset.setValue(activos, "Servicios", "Activos");
 		dataset.setValue(inactivos, "Servicios", "Detenidos");
-		dataset.setValue(indeterminados, "Servicios", "Indeterminado");
-		
+		dataset.setValue(indeterminados, "Servicios", "Indeterminados");
+
 		chart3 = ChartFactory.createBarChart("Servicios en ejecución", "Estado", null, dataset,
 				PlotOrientation.HORIZONTAL, false, true, false);
 
